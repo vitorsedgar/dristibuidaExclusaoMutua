@@ -3,6 +3,7 @@ import java.net.InetAddress;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -91,16 +92,17 @@ public class Recurso extends UnicastRemoteObject implements RecursoInterface {
     }
 
     @Override
-    public void escrever(int numero) throws RemoteException {
+    public void escrever(int numero) throws IOException {
+        System.out.println("Escrevendo dado");
         String data = "\n" + numero;
-        OutputStream os;
-        try {
-            os = new FileOutputStream(new File(ARQUIVO), true);
-            os.write(data.getBytes(), 0, data.length());
-            os.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        servidor.liberar();
+        //OutputStream os;
+        //try {
+        //    os = new FileOutputStream(new File(ARQUIVO), true);
+        //    os.write(data.getBytes(), 0, data.length());
+        //    os.close();
+        //} catch (IOException e) {
+        //    e.printStackTrace();
+        //}
+        Files.write(Paths.get(ARQUIVO), data.getBytes(), StandardOpenOption.APPEND);
     }
 }

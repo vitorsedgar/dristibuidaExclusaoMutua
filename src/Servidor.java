@@ -75,10 +75,13 @@ public class Servidor extends UnicastRemoteObject implements ServidorInterface {
 
     @Override
     public void bloquear() {
+        System.out.println("Recurso Bloqueado");
         RECURSO_LOCKADO = true;
     }
 
+    @Override
     public void liberar() {
+        System.out.println("Recurso desbloqueado");
         RECURSO_LOCKADO = false;
     }
 
