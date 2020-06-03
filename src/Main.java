@@ -8,7 +8,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
 
         if (args.length < 3) {
-            System.out.println("Usage: java Main <cliente/servidor> <ip-local> <ip-servidor>");
+            System.out.println("Usage: java Main <cliente/servidor/recurso> <ip-local> <ip-servidor>");
             System.exit(1);
         }
 
