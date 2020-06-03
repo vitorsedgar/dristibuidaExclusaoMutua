@@ -20,6 +20,8 @@ public class Recurso extends UnicastRemoteObject implements RecursoInterface {
 
     private static final String ARQUIVO = "recurso.txt";
 
+    private static ServidorInterface servidor;
+
     protected Recurso() throws RemoteException {
     }
 
@@ -36,7 +38,7 @@ public class Recurso extends UnicastRemoteObject implements RecursoInterface {
         String remoteHostName = hostAddr.getHostAddress();
         String connectLocation = "//" + remoteHostName + "/Servidor";
 
-        ServidorInterface servidor = null;
+        servidor = null;
         try {
             //Conecta no host e busca seu objeto remoto no Registro RMI do Servidor
             System.out.println("Conectando ao Servidor em : " + connectLocation);
@@ -59,7 +61,7 @@ public class Recurso extends UnicastRemoteObject implements RecursoInterface {
     }
 
     @Override
-    public int ler(ClienteInterface cliente) throws RemoteException {
+    public void ler(ClienteInterface cliente) throws RemoteException {
         //Recebe um pedido pelo recurso
         System.out.println("Enviando dado");
         try {
@@ -84,7 +86,6 @@ public class Recurso extends UnicastRemoteObject implements RecursoInterface {
             System.err.printf("Erro na abertura do arquivo: %s.\n", e.getMessage());
             e.printStackTrace();
         }
-        return 0;
     }
 
     @Override
@@ -98,5 +99,6 @@ public class Recurso extends UnicastRemoteObject implements RecursoInterface {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        servidor.liberar();
     }
 }

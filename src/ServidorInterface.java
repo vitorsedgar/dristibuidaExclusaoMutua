@@ -5,13 +5,14 @@ import java.util.List;
 
 public interface ServidorInterface extends Remote {
 
-    String registrar(HashMap<String, String> arquivos, ClienteInterface cliente) throws RemoteException;
+    String registrarCliente(ClienteInterface clienteInterface) throws RemoteException;
 
-    String registrarRecurso(RecursoInterface recurso) throws RemoteException;
+    String registrarRecurso(RecursoInterface recursoInterface) throws RemoteException;
 
-    int ping(String IPAdress) throws RemoteException;
+    RecursoInterface solicitarRecurso() throws RemoteException;
 
-    List<String> solicitar() throws RemoteException;
+    void liberar() throws RemoteException;
 
-    ClienteInterface solicitarRecurso(String nomeArquivo) throws RemoteException;
+    void bloquear() throws RemoteException;
+
 }
