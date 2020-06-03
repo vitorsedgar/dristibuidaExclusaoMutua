@@ -61,7 +61,7 @@ public class Recurso extends UnicastRemoteObject implements RecursoInterface {
     }
 
     @Override
-    public void ler(ClienteInterface cliente) throws RemoteException {
+    public int ler() throws RemoteException {
         //Recebe um pedido pelo recurso
         System.out.println("Enviando dado");
         try {
@@ -80,12 +80,14 @@ public class Recurso extends UnicastRemoteObject implements RecursoInterface {
             fileReader.close();
 
             //Chama o objeto remoto do peer que solicitou o dado e o envia
-            cliente.receberDado(Integer.parseInt(dado));
+            return Integer.parseInt(dado);
 
         } catch (IOException e) {
             System.err.printf("Erro na abertura do arquivo: %s.\n", e.getMessage());
             e.printStackTrace();
         }
+
+        return 0;
     }
 
     @Override

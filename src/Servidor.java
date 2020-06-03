@@ -70,7 +70,7 @@ public class Servidor extends UnicastRemoteObject implements ServidorInterface {
             return null;
         }
         bloquear();
-        return null;
+        return recurso;
     }
 
     @Override

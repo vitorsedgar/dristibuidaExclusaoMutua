@@ -3,7 +3,7 @@ import java.rmi.RemoteException;
 
 public interface RecursoInterface extends Remote {
 
-    void ler(ClienteInterface cliente) throws RemoteException;
+    int ler() throws RemoteException;
 
     void escrever(int numero) throws RemoteException;
 
