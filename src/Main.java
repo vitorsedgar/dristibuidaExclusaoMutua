@@ -26,6 +26,8 @@ public class Main {
 
         if (args[0].equalsIgnoreCase("cliente")) {
             Cliente.iniciar(hostAdress);
+        } else if (args[0].equalsIgnoreCase("recurso")) {
+            Recurso.iniciar(hostAdress);
         } else {
             Servidor.iniciar();
         }

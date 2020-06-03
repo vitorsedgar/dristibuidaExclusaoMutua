@@ -3,8 +3,8 @@ import java.rmi.RemoteException;
 
 public interface RecursoInterface extends Remote {
 
-    public int ler() throws RemoteException;
+    int ler(ClienteInterface cliente) throws RemoteException;
 
-    public int escrever(int numero) throws RemoteException;
+    void escrever(int numero) throws RemoteException;
 
 }

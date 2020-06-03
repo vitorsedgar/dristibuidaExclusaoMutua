@@ -9,4 +9,6 @@ public interface ClienteInterface extends Remote {
 
     public int receberArquivo(String nome, byte[] recurso) throws RemoteException;
 
+    public int receberDado(int dado) throws RemoteException;
+
 }

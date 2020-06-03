@@ -18,18 +18,85 @@ public class Recurso extends UnicastRemoteObject implements RecursoInterface {
 
     private static final long serialVersionUID = 1L;
 
-    private static final String
+    private static final String ARQUIVO = "recurso.txt";
 
     protected Recurso() throws RemoteException {
     }
 
+    public static void iniciar(InetAddress hostAddr) throws IOException {
+        Recurso recurso = new Recurso();
+
+        try {
+            //Registra no RMI Registry o objeto
+            Naming.rebind("Recurso", recurso);
+        } catch (Exception e) {
+            System.out.println("Recurso failed: " + e);
+        }
+
+        String remoteHostName = hostAddr.getHostAddress();
+        String connectLocation = "//" + remoteHostName + "/Servidor";
+
+        ServidorInterface servidor = null;
+        try {
+            //Conecta no host e busca seu objeto remoto no Registro RMI do Servidor
+            System.out.println("Conectando ao Servidor em : " + connectLocation);
+            servidor = (ServidorInterface) Naming.lookup(connectLocation);
+        } catch (Exception e) {
+            System.out.println("Servidor falhou: ");
+            e.printStackTrace();
+        }
+
+        String ip = null;
+
+        try {
+            //Registra recurso no servidor
+            ip = servidor.registrarRecurso(recurso);
+            System.out.println("Call to Servidor...");
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     @Override
-    public int ler() throws RemoteException {
+    public int ler(ClienteInterface cliente) throws RemoteException {
+        //Recebe um pedido pelo recurso
+        System.out.println("Enviando dado");
+        try {
+            //Le arquivo
+            FileReader fileReader = new FileReader(ARQUIVO);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+            String dado = "";
+            String linhaAtual;
+
+            while ((linhaAtual = bufferedReader.readLine()) != null)
+            {
+                dado = linhaAtual;
+            }
+
+            fileReader.close();
+
+            //Chama o objeto remoto do peer que solicitou o dado e o envia
+            cliente.receberDado(Integer.parseInt(dado));
+
+        } catch (IOException e) {
+            System.err.printf("Erro na abertura do arquivo: %s.\n", e.getMessage());
+            e.printStackTrace();
+        }
         return 0;
     }
 
     @Override
-    public int escrever(int numero) throws RemoteException {
-        return 0;
+    public void escrever(int numero) throws RemoteException {
+        String data = "\n" + numero;
+        OutputStream os;
+        try {
+            os = new FileOutputStream(new File(ARQUIVO), true);
+            os.write(data.getBytes(), 0, data.length());
+            os.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
