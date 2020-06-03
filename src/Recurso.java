@@ -95,14 +95,6 @@ public class Recurso extends UnicastRemoteObject implements RecursoInterface {
     public void escrever(int numero) throws IOException {
         System.out.println("Escrevendo dado");
         String data = "\n" + numero;
-        //OutputStream os;
-        //try {
-        //    os = new FileOutputStream(new File(ARQUIVO), true);
-        //    os.write(data.getBytes(), 0, data.length());
-        //    os.close();
-        //} catch (IOException e) {
-        //    e.printStackTrace();
-        //}
         Files.write(Paths.get(ARQUIVO), data.getBytes(), StandardOpenOption.APPEND);
     }
 }

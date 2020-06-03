@@ -76,13 +76,12 @@ public class Cliente extends UnicastRemoteObject implements ClienteInterface {
                                 for(int i=0; i<50; i++) {
                                     int dado = peer.ler() + 1;
                                     peer.escrever(dado);
-                                    Thread.sleep(1000);
                                 }
                                 System.out.println("Liberando recurso");
                                 servidor.liberar();
                             } else {
                                 System.out.println("Recurso indisponivel");
-                                Thread.sleep(2000);
+                                Thread.sleep(1000);
                             }
                         }
                     } catch (RemoteException | InterruptedException e) {
