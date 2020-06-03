@@ -9,7 +9,7 @@ public class Main {
         
         /**
             Integrantes: Vitor Edgar, Gabriel Löff e Matheus Ferreira
-            Estratégia Utilizada: Algoritimo Centralizado
+            Estratégia Utilizada: Algoritimo Centralizado Coordenador
             Tecnologia Utilizada: RMI
         **/
 
