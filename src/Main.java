@@ -6,6 +6,12 @@ import java.rmi.registry.LocateRegistry;
 public class Main {
 
     public static void main(String[] args) throws IOException {
+        
+        /**
+            Integrantes: Vitor Edgar, Gabriel Löff e Matheus Ferreira
+            Estratégia Utilizada: Algoritimo Centralizado
+            Tecnologia Utilizada: RMI
+        **/
 
         if (args.length < 3) {
             System.out.println("Usage: java Main <cliente/servidor/recurso> <ip-local> <ip-servidor>");
